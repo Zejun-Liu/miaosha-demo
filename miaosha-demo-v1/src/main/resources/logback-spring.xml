@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+    <property name="APP_Name" value="miaosha"/>
+    <property name="LOG_HOME" value="."/>
+    <property name="FILE_LOG_PATTERN" value="%d{MM.dd HH:mm:ss.SSS} %-5level %logger{20}-[%M] %msg%n"/>
+    <property name="LOG_FILE" value="${LOG_HOME}/${APP_Name}.log"/>
+
+    <contextName>${APP_Name}</contextName>
+
+    <!--<include resource="org/springframework/boot/logging/logback/base.xml" />-->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${ENCODER_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="LOG_FILE_SEPARATE_BY_DATE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${APP_Name}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/logs/${APP_Name}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <maxFileSize>10MB</maxFileSize>
+            <totalSizeCap>200MB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="GBK">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.jiuxian" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="LOG_FILE_SEPARATE_BY_DATE"/>
+    </logger>
+
+    <!-- 生产环境仅打印ERROR级别日志 -->
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="LOG_FILE_SEPARATE_BY_DATE"/>
+        </root>
+    </springProfile>
+
+    <!-- 开发环境仅打印INFO级别日志 -->
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="LOG_FILE_SEPARATE_BY_DATE"/>
+        </root>
+    </springProfile>
+
+    <!-- 测试环境打印DEBUG级别日志 -->
+    <springProfile name="test">
+        <root level="INFO">
+            <appender-ref ref="LOG_FILE_SEPARATE_BY_DATE"/>
+        </root>
+    </springProfile>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
