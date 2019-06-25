@@ -8,6 +8,7 @@ spring:
     username: root
     password: 123456
 
+
   redis:
     host: 192.168.190.130
     port: 6379
@@ -21,27 +22,22 @@ spring:
         min-idle: 2
 
 
-
 mybatis-plus:
   #config-location:  classpath:mybatis-config.xml
   check-config-location: false
-  executor-type: reuse #ExecutorType.SIMPLE\uFF1A\u8BE5\u6267\u884C\u5668\u7C7B\u578B\u4E0D\u505A\u7279\u6B8A\u7684\u4E8B\u60C5\uFF0C\u4E3A\u6BCF\u4E2A\u8BED\u53E5\u7684\u6267\u884C\u521B\u5EFA\u4E00\u4E2A\u65B0\u7684\u9884\u5904\u7406\u8BED\u53E5\uFF08PreparedStatement\uFF09
+  executor-type: reuse
   configuration:
     aggressive-lazy-loading: true
     lazy-loading-enabled: true
-    auto-mapping-behavior: partial  #AutoMappingBehavior.NONE\uFF1A\u4E0D\u542F\u7528\u81EA\u52A8\u6620\u5C04
-    auto-mapping-unknown-column-behavior: none  #AutoMappingUnknownColumnBehavior.NONE\uFF1A\u4E0D\u505A\u4EFB\u4F55\u5904\u7406 (\u9ED8\u8BA4\u503C)
+    auto-mapping-behavior: partial
+    auto-mapping-unknown-column-behavior: none
     cache-enabled: true
-    call-setters-on-nulls: false #\u6307\u5B9A\u5F53\u7ED3\u679C\u96C6\u4E2D\u503C\u4E3A null \u7684\u65F6\u5019\u662F\u5426\u8C03\u7528\u6620\u5C04\u5BF9\u8C61\u7684 Setter\uFF08Map \u5BF9\u8C61\u65F6\u4E3A put\uFF09\u65B9\u6CD5
+    call-setters-on-nulls: false
   global-config:
-    sql-parser-cache: true  #\u662F\u5426\u7F13\u5B58 Sql \u89E3\u6790\uFF0C\u9ED8\u8BA4\u4E0D\u7F13\u5B58\u3002
+    sql-parser-cache: true
     db-config:
       db-type: mysql
       id-type: id_worker
-      logic-delete-value: 1 #\u903B\u8F91\u5DF2\u5220\u9664\u503C,(\u903B\u8F91\u5220\u9664\u4E0B\u6709\u6548)
-      logic-not-delete-value: 0 #\u903B\u8F91\u672A\u5220\u9664\u503C,(\u903B\u8F91\u5220\u9664\u4E0B\u6709\u6548)
-      table-underline: true #\u8868\u540D\u3001\u662F\u5426\u4F7F\u7528\u4E0B\u5212\u7EBF\u547D\u540D\uFF0C\u9ED8\u8BA4\u6570\u636E\u5E93\u8868\u4F7F\u7528\u4E0B\u5212\u7EBF\u547D\u540D
-
-logging:
-  level:
-    root: info
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      table-underline: true
